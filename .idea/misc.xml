@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Black">
+    <option name="sdkName" value="Python 3.13" />
+  </component>
+  <component name="CMakePythonSetting">
+    <option name="pythonIntegrationState" value="YES" />
+  </component>
+  <component name="CMakeWorkspace" PROJECT_DIR="$PROJECT_DIR$/problem_solving ( C++ )/Compiler">
+    <contentRoot DIR="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.13 (Codeforce)" project-jdk-type="Python SDK" />
+  <component name="WestSettings"><![CDATA[{}]]></component>
+</project>

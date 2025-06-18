@@ -10,15 +10,15 @@ bool isPalindrome(string s) {
 }
 
 bool isWonderful(int n) {
-    if (n % 2 == 0) return false; // must be odd
-
+    // if (n % 2 == 0) return false; 
+    return n & 1; // check if its odd
+    
     string binary = "";
     while (n > 0) {
         binary += (n % 2) + '0';
         n /= 2;
     }
-    reverse(binary.begin(), binary.end()); // to get MSB to LSB
-
+    reverse(binary.begin(), binary.end());
     return isPalindrome(binary);
 }
 
@@ -28,4 +28,3 @@ int main() {
     cout << (isWonderful(n) ? "YES" : "NO") << '\n';
     return 0;
 }
-

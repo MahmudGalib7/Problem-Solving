@@ -116,7 +116,8 @@ int main()
         {91, 3},
         {94, 2},
         {94, 7},
-        {91, 6}};
+        {91, 6}
+    };
 
     // Create map to group students by mark
     // std::unordered_map<int, std::vector<int>> group_marks;

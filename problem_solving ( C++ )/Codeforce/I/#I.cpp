@@ -1,30 +1,42 @@
 #include <iostream>
-#include <bits/stdc++.h>
+#include <algorithm>
 using namespace std;
-#define ll long long
 
-int main()
-{
+string removeLeadingZeros(string str) {
+    size_t start = 0;
+    while (start < str.length() && str[start] == '0') {
+        start++;
+    }
+    
+    if (start == str.length()) {
+        return "0";
+    }
+    
+    return str.substr(start);
+}
+
+bool isPalindrome(string str) {
+    string reversed = str;
+    reverse(reversed.begin(), reversed.end());
+    return str == reversed;
+}
+
+int main() {
     string s;
     cin >> s;
-    string rev = s;
-    reverse(s.begin(), s.end());
-    if (rev == s)
-    {
-        cout << s << endl;
+    
+    string reversed = s;
+    reverse(reversed.begin(), reversed.end());
+    
+    string cleanReversed = removeLeadingZeros(reversed);
+    
+    cout << cleanReversed << endl;
+    
+    if (isPalindrome(s)) {
         cout << "YES" << endl;
-    }
-    else
-    {
-        if (s[0] != '0')
-        {
-            cout << s << endl;
-        }
-        else
-        {
-            cout << s.substr(1) << endl;
-        }
+    } else {
         cout << "NO" << endl;
     }
+    
     return 0;
 }

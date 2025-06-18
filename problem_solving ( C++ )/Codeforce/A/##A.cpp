@@ -9,6 +9,9 @@ int main() {
         cin >> a;
         sum += a;
     }
-    cout << sum << endl;
+    if (sum < 0) 
+        cout << -sum << endl;
+    else
+        cout << sum << endl;
     return 0;
 }

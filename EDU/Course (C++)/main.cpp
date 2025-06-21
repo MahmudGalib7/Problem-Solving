@@ -43,7 +43,6 @@ int main()
     {
         cout << "Not found" << endl;
     }
-
     vector<int> numbers = {1, 2, 3, 4, 5};
     auto acumlate_value = accumulate(numbers.begin() + 2, numbers.end(), 0);
     cout << "Accumulate value: " << acumlate_value << endl;

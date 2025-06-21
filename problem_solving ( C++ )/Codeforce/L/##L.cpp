@@ -4,27 +4,29 @@ using namespace std;
 #define ll long long
 #define endl '\n'
 
-void subArray(ll int arr[], ll int n)
-{
-    ll int max_val = 0;
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = i; j < n; j++)
-        {
-            for (int k = i; k <= j; k++)
-            {
+void subArray(ll arr[], ll n) {
+    for (int i = 0; i < n; i++) {
+        for (int j = i; j < n; j++) {
+            ll max_val = arr[i];
+            for(int k = i; k <= j; k++) {
                 max_val = max(max_val, arr[k]);
             }
-            cout << max_val << endl;
-            max_val = 0;
+            cout << max_val << " ";
         }
     }
+    cout << endl;
 }
 
-int main()
-{
-    ll int arr[] = {1, 6, 3, 7};
-    ll int n = sizeof(arr) / sizeof(arr[0]);
-    subArray(arr, n);
+int main() {
+    ll t, n;
+    cin >> t;
+    while(t--) {
+        cin >> n;
+        ll arr[n];
+        for(int i = 0; i < n; i++) {
+            cin >> arr[i];
+        }
+        subArray(arr, n);
+    }
     return 0;
 }

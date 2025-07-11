@@ -127,21 +127,21 @@ Return the number of notes used
 #     return dp[amount]
 # print(make_change(amount, notes))
 
-arr = list(map(int, input().split()))
-target = int(input())
+# arr = list(map(int, input().split()))
+# target = int(input())
 
-def sub_array(arr, target):
-  left = 0
-  min_len = float('inf')
-  win_sum = 0
+# def sub_array(arr, target):
+#   left = 0
+#   min_len = float('inf')
+#   win_sum = 0
 
-  if target > 0:
-      for right in range(len(arr)):
-        win_sum += arr[right]
-        while win_sum >= target:
-          min_len = min(min_len, right - left + 1)
-          win_sum -= arr[left]
-          left += 1
-  return True if min_len != float('inf') else False
+#   if target > 0:
+#       for right in range(len(arr)):
+#         win_sum += arr[right]
+#         while win_sum >= target:
+#           min_len = min(min_len, right - left + 1)
+#           win_sum -= arr[left]
+#           left += 1
+#   return True if min_len != float('inf') else False
 
-print(sub_array(arr, target))
+# print(sub_array(arr, target))

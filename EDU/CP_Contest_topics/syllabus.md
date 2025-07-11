@@ -76,15 +76,15 @@
 
 ### Video Playlist with the bootcamp
 
-1️⃣ EP 90 – Introduction to Dynamic Programming Day 1 – Intro + Fib
-2️⃣ EP 91 – Frog 1 & 2 (Atcoder 1D DP)  Day 1 – Min Cost DP
-3️⃣ EP 94 – Knapsack Concept and Variations Day 2 – Theory
-4️⃣ EP 96 – Knapsack 2 (Atcoder)  Day 2 – Practice
-5️⃣ EP 98 – Subset Sum & Partition Problem  Day 2 – Subset Sum Logic
-6️⃣ EP 92 – Longest Increasing Subsequence (LIS)  Day 3 – LIS
-7️⃣ EP 93 – Coin Change 1 & 2 (Leetcode)  Day 4 – Coin Change
-8️⃣ EP 97 – Rod Cutting (Optional variation of unbounded knapsack) (Optional for later) 
-9️⃣ EP 99 – Longest Common Subsequence (Optional for later) 
+- 1️⃣ EP 90 – Introduction to Dynamic Programming Day 1 – Intro + Fib
+- 2️⃣ EP 91 – Frog 1 & 2 (Atcoder 1D DP)  Day 1 – Min Cost DP
+- 3️⃣ EP 94 – Knapsack Concept and Variations Day 2 – Theory
+- 4️⃣ EP 96 – Knapsack 2 (Atcoder)  Day 2 – Practice
+- 5️⃣ EP 98 – Subset Sum & Partition Problem  Day 2 – Subset Sum Logic
+- 6️⃣ EP 92 – Longest Increasing Subsequence (LIS)  Day 3 – LIS
+- 7️⃣ EP 93 – Coin Change 1 & 2 (Leetcode)  Day 4 – Coin Change
+- 8️⃣ EP 97 – Rod Cutting (Optional variation of unbounded knapsack) (Optional for later) 
+- 9️⃣ EP 99 – Longest Common Subsequence (Optional for later) 
 
 --- 
 

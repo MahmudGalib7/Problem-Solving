@@ -27,6 +27,7 @@ def subset_sum(arr, target):
             dp[s] += dp[s - num]
             
     return dp[subset_sum]
+
 print(subset_sum(arr, target))
 print(printTargetComb(arr, target))
 
@@ -36,3 +37,22 @@ print(printTargetComb(arr, target))
 12 - 11 = 1
 sum([1,5,6]) - sum([11])
 """
+
+def min_subset_diff(arr):
+    total = sum(arr)
+    n = len(arr)
+    dp = [False] * (total + 1)
+    dp[0] = True
+
+    for num in arr:
+        for j in range(total, num - 1, -1):
+            if dp[j - num]:
+                dp[j] = True
+
+    for s1 in range(total // 2, -1, -1):
+        if dp[s1]:
+            return abs(total - 2 * s1)
+
+print(min_subset_diff([1, 6, 11, 5]))    
+print(min_subset_diff([1, 2, 7]))         
+print(min_subset_diff([1, 1, 3, 4, 7]))   

@@ -30,7 +30,8 @@ void test_case()
     int l = 0, r = n - 1;
     while (l <= r)
     {
-        int mid = (l + r) / 2;
+        // int mid = (l + r) / 2; // less suitable
+        int mid = l + (r-l)/2; // more suitable
         if (arr[mid] == k)
         {
             cout << "Yes" << endl;

@@ -1,0 +1,265 @@
+# Number Theory CP Template
+
+Use this as a contest cheat sheet. Keep only the parts you actually use often.
+
+## 1. Core Facts
+
+- `gcd(a, b)` via Euclid: `gcd(a, b) = gcd(b, a % b)`
+- `lcm(a, b) = a / gcd(a, b) * b`
+- If `d | a` and `d | b`, then `d | gcd(a, b)`
+- If `a | b`, then `gcd(a, b) = a` and `lcm(a, b) = b`
+
+## 2. Modular Arithmetic
+
+- `(a + b) % mod = ((a % mod) + (b % mod)) % mod`
+- `(a - b) % mod = ((a % mod) - (b % mod) + mod) % mod`
+- `(a * b) % mod = ((a % mod) * (b % mod)) % mod`
+- `a^b mod m` should be done with binary exponentiation
+
+### Binary Exponentiation
+
+```cpp
+long long modpow(long long a, long long b, long long mod) {
+	long long res = 1 % mod;
+	a %= mod;
+	while (b > 0) {
+		if (b & 1) res = (__int128)res * a % mod;
+		a = (__int128)a * a % mod;
+		b >>= 1;
+	}
+	return res;
+}
+```
+
+## 3. Modular Inverse
+
+### When `mod` is prime
+
+- `a^{-1} mod mod = a^(mod-2) mod mod`
+
+### Extended Euclid
+
+- Works when `gcd(a, mod) = 1`
+
+```cpp
+long long exgcd(long long a, long long b, long long &x, long long &y) {
+	if (b == 0) {
+		x = 1;
+		y = 0;
+		return a;
+	}
+	long long x1, y1;
+	long long g = exgcd(b, a % b, x1, y1);
+	x = y1;
+	y = x1 - (a / b) * y1;
+	return g;
+}
+
+long long modinv(long long a, long long mod) {
+	long long x, y;
+	long long g = exgcd(a, mod, x, y);
+	if (g != 1) return -1;
+	x %= mod;
+	if (x < 0) x += mod;
+	return x;
+}
+```
+
+## 4. Prime Numbers
+
+### Basic checks
+
+- `n < 2` is not prime
+- `2` is prime
+- check divisors up to `sqrt(n)`
+
+### Sieve of Eratosthenes
+
+```cpp
+vector<int> sieve(int n) {
+	vector<bool> isPrime(n + 1, true);
+	vector<int> primes;
+	if (n >= 0) isPrime[0] = false;
+	if (n >= 1) isPrime[1] = false;
+	for (int i = 2; i <= n; i++) {
+		if (isPrime[i]) {
+			primes.push_back(i);
+			if ((long long)i * i <= n) {
+				for (long long j = 1LL * i * i; j <= n; j += i) {
+					isPrime[(int)j] = false;
+				}
+			}
+		}
+	}
+	return primes;
+}
+```
+
+## 5. Prime Factorization
+
+### Trial division
+
+```cpp
+vector<pair<long long,int>> factorize(long long n) {
+	vector<pair<long long,int>> fac;
+	for (long long p = 2; p * p <= n; p += (p == 2 ? 1 : 2)) {
+		if (n % p == 0) {
+			int cnt = 0;
+			while (n % p == 0) {
+				n /= p;
+				cnt++;
+			}
+			fac.push_back({p, cnt});
+		}
+	}
+	if (n > 1) fac.push_back({n, 1});
+	return fac;
+}
+```
+
+### Useful derived quantities
+
+- Number of divisors: `d(n) = Π (e_i + 1)`
+- Sum of divisors: `σ(n) = Π (p_i^(e_i+1) - 1) / (p_i - 1)`
+- Product of divisors: `n^(d(n)/2)`
+
+## 6. Euler Totient
+
+- `phi(n) = n * Π(1 - 1/p)` over distinct prime factors `p`
+
+```cpp
+long long phi(long long n) {
+	long long result = n;
+	for (long long p = 2; p * p <= n; p++) {
+		if (n % p == 0) {
+			while (n % p == 0) n /= p;
+			result -= result / p;
+		}
+	}
+	if (n > 1) result -= result / n;
+	return result;
+}
+```
+
+## 7. Divisors
+
+### Enumerate all divisors
+
+```cpp
+vector<long long> divisors(long long n) {
+	vector<long long> d;
+	for (long long i = 1; i * i <= n; i++) {
+		if (n % i == 0) {
+			d.push_back(i);
+			if (i * i != n) d.push_back(n / i);
+		}
+	}
+	sort(d.begin(), d.end());
+	return d;
+}
+```
+
+## 8. Chinese Remainder Theorem
+
+### Two congruences
+
+- Solve:
+  - `x ≡ a1 (mod m1)`
+  - `x ≡ a2 (mod m2)`
+- If solvable, combine into one congruence
+
+### Standard form
+
+```cpp
+long long crt(long long a1, long long m1, long long a2, long long m2) {
+	long long x, y;
+	long long g = exgcd(m1, m2, x, y);
+	if ((a2 - a1) % g != 0) return -1;
+	long long lcm = m1 / g * m2;
+	long long t = (__int128)(a2 - a1) / g * x % (m2 / g);
+	if (t < 0) t += m2 / g;
+	long long ans = (a1 + (__int128)m1 * t) % lcm;
+	if (ans < 0) ans += lcm;
+	return ans;
+}
+```
+
+## 9. Common Contest Tools
+
+### GCD over many numbers
+
+- `g = gcd(a1, a2, ..., an)`
+
+### Fast fraction reduction
+
+- `a /= gcd(a, b)` and `b /= gcd(a, b)`
+
+### Prefix gcd / suffix gcd
+
+- Useful for removing one element and recomputing gcd quickly
+
+### Difference array trick for divisibility
+
+- If a property is about all multiples, think about marking factors or using sieve-style propagation
+
+## 10. Typical Theorems To Remember
+
+- If `gcd(a, b) = 1`, then `a | bc` implies `a | c`
+- If `gcd(a, m) = 1`, then modular inverse of `a mod m` exists
+- `a^(phi(m)) ≡ 1 (mod m)` when `gcd(a, m) = 1`
+- `gcd(a, b) * lcm(a, b) = a * b`
+
+## 11. Quick Checklist For Problems
+
+- Is it asking for divisibility, gcd, lcm, or remainders?
+- Is modulo prime or composite?
+- Do I need prime factorization or all divisors?
+- Can I use sieve, factorization, or prefix/suffix gcd?
+- Is CRT needed for multiple congruences?
+- Is the answer too large without modulo?
+
+## 12. Problem Patterns
+
+- Count numbers with a gcd condition
+- Sum over divisors or multiples
+- Find minimum/maximum x satisfying congruences
+- Count primes / factorize many numbers
+- Compute modular combinations
+- Handle large powers with repeated multiplication in mod arithmetic
+
+## 13. Small Template Snippets
+
+```cpp
+const long long MOD = 1e9 + 7;
+```
+
+```cpp
+long long norm(long long x, long long mod) {
+	x %= mod;
+	if (x < 0) x += mod;
+	return x;
+}
+```
+
+```cpp
+long long gcdll(long long a, long long b) {
+	while (b) {
+		long long t = a % b;
+		a = b;
+		b = t;
+	}
+	return a;
+}
+```
+
+## 14. What To Memorize First
+
+- Euclid gcd
+- Binary exponentiation
+- Modular inverse
+- Sieve
+- Factorization
+- Euler totient
+- CRT
+- Divisor formulas
+****
